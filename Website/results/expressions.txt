@@ -1,0 +1,15 @@
+invalid: (R + c + h_B)*(a + h_C + m_A)/(2*h_B*m_B*cos(B)) < 1
+invalid: h_B/r < 1
+invalid: 1/((2*sin(A) + sin(C))*cos(A)) >= 1
+invalid: 1/(sin(A) + 2*sin(B)) > 1
+invalid: 1/(2*sin(B) + cos(A)) = 1
+invalid: sin(A)/(sin(C) + cos(B)) >= 1
+invalid: s/(a + b) = 1
+invalid: m_B/(m_A*sin(B)) < 1
+invalid: (h_B + r)*sin(A)/(m_A*sin(B)*cos(B)) < 1
+invalid: 3*T/(2*h_A*(h_C + m_A)*(sin(C) + cos(B))) = 1
+valid: (sin(B) + cos(A))/cos(B) >= 1 ["equilateral"]
+invalid: h_A*(sin(A) + cos(B))/m_C <= 1
+invalid: 1/(cos(B) + cos(C)) < 1
+valid: (a + b)/c > 1 ["equilateral", "isosceles", "scalene", "right"]
+invalid: 1/sin(C) < 1
