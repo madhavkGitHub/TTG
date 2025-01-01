@@ -1,0 +1,17 @@
+$$\frac{c \cos{\left(B \right)}}{a + h_{C}}$$
+
+$$\frac{c + h_{A}}{h_{A} \sin{\left(A \right)}}$$
+
+$$\frac{r \cos{\left(B \right)}}{s \left(\cos{\left(B \right)} + 2 \cos{\left(C \right)}\right)}$$
+
+$$\frac{1}{\sin{\left(C \right)} + \cos{\left(A \right)}}$$
+
+$$\frac{m_{C} \left(c + m_{C}\right) \left(\sin{\left(A \right)} + \cos{\left(A \right)}\right)}{h_{B} \left(b + m_{B} + m_{C}\right)}$$
+
+$$\frac{\left(\sin{\left(A \right)} + \cos{\left(A \right)} + \cos{\left(C \right)}\right) \cos{\left(B \right)}}{\left(\sin{\left(A \right)} + \sin{\left(C \right)}\right) \sin{\left(B \right)}}$$
+
+$$\frac{T}{2 h_{B} m_{B}}$$
+
+$$\frac{b}{h_{C} + r}$$
+
+$$\frac{1}{\cos{\left(B \right)}}$$
