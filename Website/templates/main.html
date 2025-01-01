@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LLM Proofs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        h1 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .single, .run {
+            margin: 10px 0;
+        }
+        button.run {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 250px;
+        }
+        button.run:hover {
+            background-color: #45a049;
+        }
+        button.enter {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 250px;
+        }
+        button.enter:hover {
+            background-color: #45a049;
+        }
+
+        
+        .triple {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .triple div {
+            width: 30px;
+            height: 4px;
+            background-color: #333;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+
+       
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            padding-top: 60px;
+            transform: translateX(-100%);
+            transition: 0.3s;
+            color: white;
+            overflow-y: auto;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1em;
+            color: #f4f4f9;
+            display: block;
+            transition: 0.2s;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        .sidebar .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="triple" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    
+    <div id="sidebar" class="sidebar">
+        <span class="close-btn" onclick="toggleSidebar()">×</span>
+        <a href="/"><u>H</u>ome</a>
+        <a href="/Previous"><u>P</u>revious Theorems</a>
+    </div>
+
+    <h1>Triangle Theorem Generator</h1>
+    
+    <div class="single">
+        <button class="run" onclick="window.location.href='/Find'"><u>F</u>ind/Validate a single theorem</button>
+    </div>
+    <div class="run">
+        <button class="run" onclick="window.location.href='/FindMany'"><u>S</u>earch through many theorems</button>
+    </div>
+    <div class="enter">
+        <button class="enter" onclick="window.location.href='/Enter'"><u>E</u>nter your own theorem</button>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+        }
+
+        window.addEventListener("keydown", async (ev) => {
+            console.log(ev.key);
+            if(ev.key == "f" || ev.key == "F"){
+                window.location.href = "/Find";
+            }
+            if(ev.key == "s" || ev.key == "S"){
+                window.location.href = "/FindMany";
+            }
+            if(ev.key == "e" || ev.key == "E"){
+                window.location.href = "/Enter";
+            }
+            if(ev.key == "t" || ev.key == "T"){
+                toggleSidebar();
+            }
+
+            if(document.getElementById("sidebar").classList.contains("open")){
+                if(ev.key == "h" || ev.key == "H"){
+                    window.location.href = "/";
+                }
+                if(ev.key == "p" || ev.key == "P"){
+                    window.location.href = "/Previous";
+                }
+            }
+
+        });
+
+    </script>
+</body>
+</html>

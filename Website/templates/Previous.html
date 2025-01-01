@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Previous Inequalities</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 20px;
+            padding-top: 60px;
+        }
+
+        
+        #list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 10px;
+            margin: 0;
+        }
+
+        li {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .equation-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .equation-item img {
+            max-width: 300px; 
+            max-height: 225px;
+            margin-right: 15px;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
+        .equation-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .validity {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .invalid {
+            color: #FF5722;
+        }
+
+        .time {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+
+        .triple {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .triple div {
+            width: 30px;
+            height: 4px;
+            background-color: #333;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+
+       
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            padding-top: 60px;
+            transform: translateX(-100%);
+            transition: 0.3s;
+            color: white;
+            overflow-y: auto;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1em;
+            color: #f4f4f9;
+            display: block;
+            transition: 0.2s;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        .sidebar .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px; 
+            margin-top: 20px; 
+            padding-right: 10px; 
+        }
+
+        
+        #filter-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        
+        #filter-button:hover {
+            background-color: #45a049; 
+        }
+
+        
+        #filter-button:active {
+            background-color: #388e3c;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px; 
+            margin-top: 20px; 
+            padding-right: 10px; 
+        }
+        #filtered_list{
+            display: none;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 300px;
+        }
+
+        .popup-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #555;
+        }
+        .popup-content h4 {
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .popup-content label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .popup-content label[style="margin-left: 20px;"] {
+            margin-left: 20px;
+        }
+        .popup-content h3 {
+            margin-bottom: 20px;
+        }
+
+        #filter-form label {
+            margin-bottom: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+
+        .load {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 20px;
+        }
+        .load:hover {
+            background-color: #45a049;
+        }
+        .load:active {
+            background-color: #388e3c;
+        }
+
+
+    </style>
+</head>
+<body>
+    
+    
+    <div class="triple" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    
+    <div id="sidebar" class="sidebar">
+        <span class="close-btn" onclick="toggleSidebar()">×</span>
+        <a href="/"><u>H</u>ome</a>
+        <a href="/Previous"><u>P</u>revious Theorems</a>
+    </div>
+
+    <div class="filter-container">
+        <button id="filter-button" onclick="openFilterPopup()"><u>F</u>ilter</button>
+    </div>
+    
+    <div id="filter-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closeFilterPopup()">×</span>
+            <h3>Filter Options</h3>
+            <form id="filter-form">
+                <label>
+                    <input type="checkbox" name="filter" value="remove"> Remove Filters
+                </label><br>
+    
+                <h4>Validity</h4>
+                <label>
+                    <input type="checkbox" name="filter" value="invalid"> Invalid
+                </label><br>
+                <label>
+                    <input type="checkbox" name="filter" value="valid" data-group="valid-group" onchange="toggleSubgroup(this)"> Valid
+                </label><br>
+                <label style="margin-left: 20px;">
+                    <input type="checkbox" name="filter" value="equilateral" class="valid-group"> Equilateral
+                </label><br>
+                <label style="margin-left: 20px;">
+                    <input type="checkbox" name="filter" value="scalene" class="valid-group"> Scalene
+                </label><br>
+                <label style="margin-left: 20px;">
+                    <input type="checkbox" name="filter" value="isosceles" class="valid-group"> Isosceles
+                </label><br>
+                <label style="margin-left: 20px;">
+                    <input type="checkbox" name="filter" value="right" class="valid-group"> Right
+                </label><br>
+    
+                <h4>Terms</h4>
+                <label>
+                    <input type="checkbox" name="filter" value="a"> a
+                </label><br>
+                <label>
+                    <input type="checkbox" name="filter" value="b"> b
+                </label><br>
+                <label>
+                    <input type="checkbox" name="filter" value="c"> c
+                </label><br>
+                <label>
+                    <input type="checkbox" name="filter" value="A"> A
+                </label><br>
+                <label>
+                    <input type="checkbox" name="filter" value="B"> B
+                </label><br>
+                <label>
+                    <input type="checkbox" name="filter" value="C"> C
+                </label><br>
+    
+                <button type="button" onclick="applyFilters()">Apply</button>
+            </form>
+        </div>
+    </div>
+
+    <ul id="list">
+        
+    </ul>
+
+    <p id="filtered_list">{{ filtered }}</p>
+    <script>
+        let equations = [];
+
+        async function geteqs(url) {
+            const response = await fetch(url);
+            const data = await response.json();
+            equations = data[""];
+            console.log(equations);
+            let filtered = false;
+            let show = new Set();
+            if(document.getElementById("filtered_list").innerHTML == ""){
+                for(let i = 0; i < equations.length; i++){
+                    show.add(i);
+                }
+            }
+            else{
+                let l = document.getElementById("filtered_list").innerHTML;
+                let list = (l.substring(1, l.length-1)).split(", ");
+                for(let i = 0; i < list.length; i++){
+                    show.add(parseInt(list[i]))
+                }
+                filtered = true;
+            }
+
+            let list = document.getElementById("list");
+            for (let i = 0; i < equations.length; i++) {
+                if(show.has(i) == false){
+                    continue;
+                }
+                console.log(equations[i][0]);
+                let validity = equations[i][0] != "invalid" ? true : false;
+                let v = equations[i][0]
+                let statement = "";
+                if(v != "invalid"){
+                    statement = "Valid for " + v;
+                }
+                else{
+                    statement = "Invalid"
+                }
+                let src = "static\\images\\storage\\" + equations[i][1];
+                if(filtered == true){
+                    src = "../" + src;
+                }
+                console.log(src);
+                let time = equations[i][2];
+
+                let li = document.createElement('li');
+                list.appendChild(li);
+                
+                
+                li.innerHTML = `
+                    <div class="equation-item">
+                        <img src="${src}" alt="Equation Image">
+                        <div class="equation-details">
+                            <div class="validity ${validity ? '' : 'invalid'}">
+                                ${statement}
+                            </div>
+                            <div class="time">
+                                Check Time: ${time}s
+                            </div>
+                        </div>
+                        <button class="load" id="eq${i.toString()}" onclick="loadEq(${i})">Load</button>
+                    </div>
+                `;
+            }
+        }
+        geteqs("http://127.0.0.1/Equations");
+
+        function loadEq(i){
+            console.log(i);
+            window.location.href="/Load/" + i.toString();
+        }
+        
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+        }
+        window.addEventListener("keydown", async (ev) => {
+            if(ev.key == "t" || ev.key == "T"){
+                toggleSidebar();
+            }
+            if(document.getElementById("sidebar").classList.contains("open")){
+                if(ev.key == "h" || ev.key == "H"){
+                    window.location.href = "/";
+                }
+                if(ev.key == "p" || ev.key == "P"){
+                    window.location.href = "/Previous";
+                }
+            }
+            if(ev.key == "f" || ev.key == "F"){
+                if(document.getElementById('filter-popup').style.display == "block"){
+                    closeFilterPopup();
+                }
+                else{
+                    openFilterPopup();
+                }
+            }
+        });
+
+        function toggleSubgroup(parentCheckbox) {
+            const group = parentCheckbox.getAttribute('data-group');
+            const subgroups = document.querySelectorAll(`.${group}`);
+
+            subgroups.forEach(subgroup => {
+                subgroup.checked = parentCheckbox.checked;
+            });
+        }
+
+        document.querySelectorAll('.valid-group').forEach(subgroup => {
+            subgroup.addEventListener('change', () => {
+                const parentCheckbox = document.querySelector('input[data-group="valid-group"]');
+                const allChecked = Array.from(document.querySelectorAll('.valid-group')).every(subgroup => subgroup.checked);
+
+                parentCheckbox.checked = allChecked;
+            });
+        });
+
+        function openFilterPopup() {
+            document.getElementById('filter-popup').style.display = 'block';
+        }
+
+        function closeFilterPopup() {
+            document.getElementById('filter-popup').style.display = 'none';
+        }
+
+        function applyFilters() {
+            const selectedFilters = Array.from(document.querySelectorAll('input[name="filter"]:checked'))
+                .map(checkbox => checkbox.value);
+
+            if (selectedFilters.length > 0) {
+                closeFilterPopup();
+                let filters = selectedFilters.join("-");
+                console.log(filters);
+                if(filters.includes("remove")){
+                    window.location.href = "/Previous";
+                }
+                else{
+                    window.location.href = "/Previous/" + filters;
+                }
+            } else {
+                alert('Please select at least one filter option.');
+            }
+        }
+
+
+    </script>
+</body>
+</html>

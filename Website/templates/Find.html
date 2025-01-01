@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LLM Proofs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        #dontdisplay {
+            display: none;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2em;
+            color: #333;
+        }
+        .statistics {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #e2e8f0;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            font-size: 0.9em;
+            color: #555;
+        }
+        .statistics p {
+            margin: 5px 0;
+        }
+        .run {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        #image {
+            max-width: 600px;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+        .next {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .xnext {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .xnext :hover {
+            background-color: #45a049;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="statistics">
+        <p>Equations: {{ eq }}</p>
+        <p># of Valid: {{ valid }}</p>
+        <p>Average Check Time (Valid): {{ vtime }}s</p>
+        <p># of Invalid:{{ invalid }}</p>
+        <p>Average Check Time (Invalid): {{ itime }}s</p>
+    </div>
+    
+    <h1>Triangle Theorem Generator</h1>
+    <p id="dontdisplay">{{ src }}</p>
+    <div class="run">
+        <img id="image" src="{{ src }}" alt="Theorem Image">
+    </div>
+    <div class="next">
+        <button class="xnext" onclick="window.location.href='/Validate'">
+            <u>V</u>alidate
+        </button>
+        <button class="xnext" onclick="window.location.href='/Find'">
+            <u>S</u>kip
+        </button>
+        <button class="xnext" onclick="window.location.href='/'">
+            <u>Q</u>uit
+        </button>
+    </div>
+
+    <script>
+        let loc = document.getElementById("dontdisplay").innerHTML;
+        document.getElementById("image").src = loc;
+
+        window.addEventListener("keydown", async (ev) => {
+            console.log(ev.key);
+            if(ev.key == "v" || ev.key == "V"){
+                window.location.href = "/Validate";
+            }
+            if(ev.key == "s" || ev.key == "S"){
+                window.location.href = "/Find";
+            }
+            if(ev.key == "q" || ev.key == "Q"){
+                window.location.href = "/";
+            }
+        });
+
+    </script>
+</body>
+</html>
