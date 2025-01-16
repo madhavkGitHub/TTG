@@ -18,6 +18,8 @@ def categorize(a, b, c):
 def valid(Symbols_set, expr, i):
     #min_value = math.inf
     #max_value = 0
+    Symbols_list = list(Symbols_set)
+    f = lambdify(Symbols_list, expr, "numpy")
     satisfies = {"equilateral" : True, "isosceles" : True, "scalene" : True, "right" : True, "" : False}
     for a in range(1, 101):
         for b in range(1, 101):
@@ -27,11 +29,15 @@ def valid(Symbols_set, expr, i):
                 type = categorize(a, b, c)
                 #print(Symbols_set)
                 symbol_values = []
-                for symbol in Symbols_set:
-                    symbol_values.append((symbol, GetValue.get_value(a, b, c, symbol)))
+                for symbol in Symbols_list:
+                    symbol_values.append(GetValue.get_value(a, b, c, symbol))
                 #print(symbol_values)
-                value = expr.subs(symbol_values)
-                if value == (Symbol("x")/0).subs([(Symbol("x"),1)]):
+                #value = expr.subs(symbol_values)
+                #print(value, value2)
+                value = 0
+                try:
+                    value = f(*symbol_values)
+                except ZeroDivisionError:
                     if i % 2 == 0:
                         return False
                     else:

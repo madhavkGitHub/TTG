@@ -13,3 +13,6 @@ invalid: h_A*(sin(A) + cos(B))/m_C <= 1
 invalid: 1/(cos(B) + cos(C)) < 1
 valid: (a + b)/c > 1 ["equilateral", "isosceles", "scalene", "right"]
 invalid: 1/sin(C) < 1
+invalid: R/c = 1
+invalid: 6*a/(s*(sin(B) + sin(C) + cos(C))) <= 1
+invalid: T/((m_C + s)*(m_A + m_B + m_C)) > 1
