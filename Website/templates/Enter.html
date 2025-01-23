@@ -64,9 +64,71 @@
             border-color: #4CAF50;
             box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
         }
+        .triple {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .triple div {
+            width: 30px;
+            height: 4px;
+            background-color: #333;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+
+       
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            padding-top: 60px;
+            transform: translateX(-100%);
+            transition: 0.3s;
+            color: white;
+            overflow-y: auto;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1em;
+            color: #f4f4f9;
+            display: block;
+            transition: 0.2s;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        .sidebar .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+    
+    <div class="triple" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div id="sidebar" class="sidebar">
+        <span class="close-btn" onclick="toggleSidebar()">×</span>
+        <a href="/"><u>H</u>ome</a>
+        <a href="/Previous"><u>P</u>revious Theorems</a>
+    </div>
 
     <form class="custom">
         <label for="numerator">Numerator:</label>
@@ -82,6 +144,26 @@
         </select>
         
     </form>
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+        }
+        window.addEventListener("keydown", async (ev) => {
+            console.log(ev.key);
+            if(ev.key == "t" || ev.key == "T"){
+                toggleSidebar();
+            }
 
+            if(document.getElementById("sidebar").classList.contains("open")){
+                if(ev.key == "h" || ev.key == "H"){
+                    window.location.href = "/";
+                }
+                if(ev.key == "p" || ev.key == "P"){
+                    window.location.href = "/Previous";
+                }
+            }
+
+        });
+    </script>
 </body>
 </html>
